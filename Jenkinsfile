@@ -11,14 +11,12 @@ pipeline {
         }
         
     stage('Install Packer') {
-      steps {
-        script {
+        steps {
+            script {
             def packerVersion = '1.7.3'
             def packerDir = "${env.WORKSPACE}/packer"
             sh """
-            if [ ! -d "${packerDir}" ]; then
-                mkdir ${packerDir}
-            fi
+            mkdir -p ${packerDir} || true
             curl -o ${packerDir}/packer_${packerVersion}_linux_amd64.zip https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
             unzip -o -d ${packerDir} ${packerDir}/packer_${packerVersion}_linux_amd64.zip
             """
@@ -26,6 +24,7 @@ pipeline {
         }
     }
 }
+
 
 
         stage('Build Image with Packer') {
