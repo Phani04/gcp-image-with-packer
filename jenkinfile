@@ -26,13 +26,6 @@ pipeline {
                 sh "packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
             }
         }
-        stage('Deploy VM with Terraform') {
-            steps {
-                sh '''
-                terraform init
-                terraform apply -auto-approve
-                '''
-            }
-        }
+    
     }
 }
