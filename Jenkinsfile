@@ -14,7 +14,7 @@ pipeline {
                 script {
                     def packerVersion = '1.7.3' // specify desired version
                     sh """
-                    wget https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
+                    curl -O https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
                     unzip packer_${packerVersion}_linux_amd64.zip
                     sudo mv packer /usr/local/bin
                     """
