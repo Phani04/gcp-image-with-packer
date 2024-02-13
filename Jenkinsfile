@@ -19,7 +19,7 @@ pipeline {
                 curl -o ${packerDir}/packer_${packerVersion}_linux_amd64.zip https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
                 unzip -o -d ${packerDir} ${packerDir}/packer_${packerVersion}_linux_amd64.zip
                 """
-            env.PATH = "${packerDir}:$PATH"
+                env.PATH = "${packerDir}:$PATH"
         }
     }
 }
