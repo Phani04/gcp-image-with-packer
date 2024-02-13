@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Phani04/gcp-image-with-packer.git'
+                git(branch: 'main', url: 'https://github.com/Phani04/gcp-image-with-packer.git')
             }
         }
         stage('Install Packer') {
@@ -26,6 +26,5 @@ pipeline {
                 sh "packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
             }
         }
-    
     }
 }
