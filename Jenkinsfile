@@ -10,20 +10,17 @@ pipeline {
             }
         }
         stage('Install Packer') {
-    steps {
-        script {
-            def packerVersion = '1.7.3'
-            def packerDir = "${env.WORKSPACE}/packer"
-            sh """
-            mkdir -p ${packerDir}
-            curl -o ${packerDir}/packer_${packerVersion}_linux_amd64.zip https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
-            unzip -d ${packerDir} ${packerDir}/packer_${packerVersion}_linux_amd64.zip
-            """
-            env.PATH = "${packerDir}:$PATH"
+            steps {
+                script {
+                    def packerVersion = '1.7.3' // specify desired version
+                    sh """
+                    curl -O https://releases.hashicorp.com/packer/${packerVersion}/packer_${packerVersion}_linux_amd64.zip
+                    unzip packer_${packerVersion}_linux_amd64.zip
+                    sudo mv packer /usr/local/bin
+                    """
+                }
+            }
         }
-    }
-}
-
         stage('Build Image with Packer') {
             steps {
                 sh "packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
