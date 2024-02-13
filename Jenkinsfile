@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        GOOGLE_APPLICATION_CREDENTIALS = '/Users/phani/Projects/GCP/packer-projects/packer-build-414007-3e9ea0d3e755.json'
+    }
     parameters {
         choice(name: 'SOFTWARE_PACKAGE', choices: ['nginx', 'tomcat'], description: 'Select the software package to install.')
     }
@@ -27,7 +30,7 @@ pipeline {
             steps {
                 sh "${env.WORKSPACE}/packer_installation/packer init ."
                 sh "${env.WORKSPACE}/packer_installation/packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
-                
+
             }
         }
     }
