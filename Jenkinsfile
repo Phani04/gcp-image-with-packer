@@ -25,6 +25,7 @@ pipeline {
         }
         stage('Build Image with Packer') {
             steps {
+                sh "packer init ."
                 sh "${env.WORKSPACE}/packer_installation/packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
             }
         }
