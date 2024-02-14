@@ -17,3 +17,9 @@
         name: tomcat9
         state: started
         enabled: yes
+    - name: Change Tomcat port to 80
+      lineinfile:
+        path: /path/to/tomcat/conf/server.xml
+        regexp: 'port="8080"'
+        line: 'port="80"'
+        state: present
