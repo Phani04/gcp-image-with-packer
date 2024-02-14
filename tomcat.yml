@@ -8,4 +8,12 @@
         state: present
 
     - name: Install Tomcat
-      # Add tasks to install Tomcat
+      apt:
+        name: tomcat9
+        state: present
+
+    - name: Start and enable Tomcat service
+      systemd:
+        name: tomcat9
+        state: started
+        enabled: yes
