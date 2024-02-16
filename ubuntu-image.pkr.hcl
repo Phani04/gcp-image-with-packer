@@ -19,6 +19,7 @@ variable "software" {
 
 
 source "googlecompute" "ubuntu-nginx" {
+  image_name = "phani-my-custom-ubuntu-image-{{timestamp}}"
   project_id      = "packer-build-414007"
   source_image_family = "ubuntu-2004-lts"
   zone            = "us-central1-a"
