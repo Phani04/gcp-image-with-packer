@@ -1,9 +1,7 @@
 variable "account_file" {
-  type    = string
-  default = ""
+  type = string
 }
 
 variable "software" {
-  type    = string
-  default = "nginx"
+  type = string
 }

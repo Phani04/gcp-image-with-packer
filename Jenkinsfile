@@ -36,14 +36,14 @@ pipeline {
                     echo 'Using Service Account Key at: ${GOOGLE_APPLICATION_CREDENTIALS}'
                     ${env.WORKSPACE}/packer_installation/packer init .
                     ${env.WORKSPACE}/packer_installation/packer build \\
-                     -var-file=variables.pkr.hcl \\
-                     -var 'software=${params.SOFTWARE_PACKAGE}' \\
-                     -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
-                     ubuntu-image.pkr.hcl
-            """
+                    -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
+                    -var 'software=${params.SOFTWARE_PACKAGE}' \\
+                    ubuntu-image.pkr.hcl
+                 """
+                }
+             }
         }
-    }
-}
+
 
 
     }    
