@@ -34,7 +34,7 @@ pipeline {
                     withCredentials([file(credentialsId: 'gcp_serviceaccount', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) 
                     {
                         sh """
-                        echo ${GOOGLE_APPLICATION_CREDENTIALS}'
+                        echo '${GOOGLE_APPLICATION_CREDENTIALS}'
                         ${env.WORKSPACE}/packer_installation/packer init .
                         ${env.WORKSPACE}/packer_installation/packer build \\
                         -var 'software=${params.SOFTWARE_PACKAGE}' \\
