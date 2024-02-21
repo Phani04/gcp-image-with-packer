@@ -11,6 +11,14 @@ packer {
   }
 }
 
+variable "software" {
+  type = string
+}
+
+variable "account_file" {
+  type = string
+}
+
 source "googlecompute" "ubuntu-nginx" {
   account_file = var.account_file
   image_name = "phani-my-custom-ubuntu-image-{{timestamp}}"
