@@ -11,14 +11,13 @@ packer {
   }
 }
 
-
 variable "software" {
   type    = string
   default = "nginx"
 }
 
-
 source "googlecompute" "ubuntu-nginx" {
+  account_file = var.account_file
   image_name = "phani-my-custom-ubuntu-image-{{timestamp}}"
   project_id      = "packer-build-414007"
   source_image_family = "ubuntu-2004-lts"
