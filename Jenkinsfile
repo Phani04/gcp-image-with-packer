@@ -31,19 +31,20 @@ pipeline {
 
         stage('Build Image with Packer') {
             steps {
-                    withCredentials([file(credentialsId: 'gcp_serviceaccount', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) 
-                    {
-                        sh """
-                        echo '${GOOGLE_APPLICATION_CREDENTIALS}'
-                        ${env.WORKSPACE}/packer_installation/packer init .
-                        ${env.WORKSPACE}/packer_installation/packer build -var-file=variables.pkr.hcl\\
-                        -var 'software=${params.SOFTWARE_PACKAGE}' \\
-                        -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
-                        ubuntu-image.pkr.hcl
-                        """
-                    }
-                }
-        }  
+                withCredentials([file(credentialsId: 'gcp_serviceaccount', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                sh """
+                    echo 'Using Service Account Key at: ${GOOGLE_APPLICATION_CREDENTIALS}'
+                    ${env.WORKSPACE}/packer_installation/packer init .
+                    ${env.WORKSPACE}/packer_installation/packer build \\
+                     -var-file=variables.pkr.hcl \\
+                     -var 'software=${params.SOFTWARE_PACKAGE}' \\
+                     -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
+                     ubuntu-image.pkr.hcl
+            """
+        }
+    }
+}
+
 
     }    
 
