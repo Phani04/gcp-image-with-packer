@@ -36,7 +36,7 @@ pipeline {
                         sh """
                         echo '${GOOGLE_APPLICATION_CREDENTIALS}'
                         ${env.WORKSPACE}/packer_installation/packer init .
-                        ${env.WORKSPACE}/packer_installation/packer build \\
+                        ${env.WORKSPACE}/packer_installation/packer build -var-file=variables.pkr.hcl\\
                         -var 'software=${params.SOFTWARE_PACKAGE}' \\
                         -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
                         ubuntu-image.pkr.hcl
