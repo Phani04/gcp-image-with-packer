@@ -34,11 +34,11 @@ pipeline {
                     withCredentials([file(credentialsId: 'gcp_serviceaccount', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) 
                     {
                         sh """
-                        ${env.WORKSPACE}/packer_installation/packer init ."
+                        ${env.WORKSPACE}/packer_installation/packer init .
                         ${env.WORKSPACE}/packer_installation/packer build \\
                         -var 'software=${params.SOFTWARE_PACKAGE}' \\
                         -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
-                        "ubuntu-image.pkr.hcl"
+                        ubuntu-image.pkr.hcl
                         """
                     }
                 }
