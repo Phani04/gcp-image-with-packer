@@ -3,7 +3,7 @@ pipeline {
     
     parameters {
         choice(name: 'SOFTWARE_PACKAGE', choices: ['nginx', 'tomcat'], description: 'Select the software package to install.')
-    }
+      }
 
     stages {
         stage('Checkout') {
@@ -44,6 +44,6 @@ pipeline {
                 }
         }  
 
-       
+    }    
 
    }
