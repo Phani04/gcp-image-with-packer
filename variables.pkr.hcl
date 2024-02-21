@@ -5,5 +5,5 @@ variable "account_file" {
 
 variable "software" {
   type    = string
-  default = ""
+  default = "nginx"
 }
