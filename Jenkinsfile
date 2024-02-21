@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    environment {
-        GOOGLE_APPLICATION_CREDENTIALS = '/Users/phani/Projects/GCP/packer-projects/packer-build-414007-3e9ea0d3e755.json'
-    }
+    
     parameters {
         choice(name: 'SOFTWARE_PACKAGE', choices: ['nginx', 'tomcat'], description: 'Select the software package to install.')
     }
@@ -17,6 +15,7 @@ pipeline {
         stage('Install Packer') {
             steps {
                 script {
+                   
                     def packerVersion = '1.7.3'
                     def packerDir = "${env.WORKSPACE}/packer_installation"
                     sh """
@@ -25,15 +24,28 @@ pipeline {
                     unzip -o -d ${packerDir} ${packerDir}/packer_${packerVersion}_darwin_amd64.zip
                     chmod +x ${packerDir}/packer
                     """
+            
                 }
             }
         }
 
         stage('Build Image with Packer') {
             steps {
-                sh "${env.WORKSPACE}/packer_installation/packer init ."
-                sh "${env.WORKSPACE}/packer_installation/packer build -var 'software=${params.SOFTWARE_PACKAGE}' ubuntu-image.pkr.hcl"
-            }
-        }
-    }
+                    withCredentials([file(credentialsId: 'gcp_serviceaccount', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) 
+                    {
+                        sh """
+                        ${env.WORKSPACE}/packer_installation/packer init ."
+                        ${env.WORKSPACE}/packer_installation/packer build \\
+                        -var 'software=${params.SOFTWARE_PACKAGE}' \\
+                        -var 'account_file=${GOOGLE_APPLICATION_CREDENTIALS}' \\
+                        'ubuntu-image.pkr.hcl"
+                        """
+                    }
+                }
+        }  
+
+       
+
+   }
+
 }
