@@ -1,4 +1,4 @@
-ariable "account_file" {
+variable "account_file" {
   type    = string
   default = ""
 }
