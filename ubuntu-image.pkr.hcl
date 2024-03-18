@@ -11,13 +11,6 @@ packer {
   }
 }
 
-variable "software" {
-  type = string
-}
-
-variable "account_file" {
-  type = string
-}
 
 source "googlecompute" "ubuntu-nginx" {
   account_file = var.account_file
