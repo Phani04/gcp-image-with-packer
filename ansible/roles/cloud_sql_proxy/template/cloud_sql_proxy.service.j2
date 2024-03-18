@@ -1,0 +1,21 @@
+[Unit]
+Description=Google Cloud SQL Proxy
+After=network.target
+
+[Service]
+User=root
+ExecStartPre=-/bin/bash -c 'NIC1_GW=$$(curl -s -H "Metadata-Flavor: Google" https://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/1/gateway | head -1) && sudo route add -net 192.168.0.0/16 gw $$NIC1_GW'
+ExecStart=/opt/cloud_sql_proxy/cloud-sql-proxy \
+  --auto-iam-authn \
+  --private-ip \
+  --address 0.0.0.0 \
+  --port {{ DB_PORT }} \
+  {{ project_id }}:{{ REGION }}:{{ DB_INSTANCE }}
+
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=cloud_sql_proxy
+
+[Install]
+WantedBy=multi-user.target

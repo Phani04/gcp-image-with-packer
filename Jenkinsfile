@@ -3,12 +3,13 @@ pipeline {
     
     parameters {
         choice(name: 'SOFTWARE_PACKAGE', choices: ['nginx', 'tomcat'], description: 'Select the software package to install.')
+        choice(name: 'CLOUD_SQL_PROXY', choices: ['yes', 'no'], description: 'Select Cloud SQL Proxy choice')
       }
 
     stages {
         stage('Checkout') {
             steps {
-                git(branch: 'main', url: 'https://github.com/Phani04/gcp-image-with-packer.git')
+                git(branch: 'genericv1', url: 'https://github.com/Phani04/gcp-image-with-packer.git')
             }
         }
 

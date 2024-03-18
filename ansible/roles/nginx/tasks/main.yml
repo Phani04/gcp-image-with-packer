@@ -1,0 +1,24 @@
+# Ansible Script  to install Nginx
+---
+- name: Install Nginx
+    apt: 
+      name: nginx
+      state: present
+
+- name: Update Nginx conf to avoid errors
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+
+- name: Ensure Nginx is enabled and started
+    systemd:
+      name: nginx
+      enabled: yes
+      state: started
+
+- name: Install Java
+    apt:
+      name: default-jdk
+      state: present

@@ -1,0 +1,8 @@
+---
+- name: Install Ngnix
+  yum:
+    name: nginx
+    state: present
+
+- name: Update Nginx conf to avoid errors 
+  

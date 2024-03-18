@@ -1,0 +1,11 @@
+---
+- name: Debug before include
+  debug:
+    msg: "Before including setup_cloud_sql_proxy.yml"
+
+- include_tasks: setup_cloud_sql_proxy.yml
+  when: cloud_sql_proxy == 'yes'
+
+- name: Debug after include
+  debug:
+    msg: "After including setup_cloud_sql_proxy.yml"
